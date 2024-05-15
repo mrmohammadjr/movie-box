@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  background: url("../public/wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  direction: rtl;
+}
+.navbar {
+  background-image: linear-gradient(#454545, transparent);
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  direction: rtl;
+  width: 100%;
+}
+.sidebar{
+  background-color: #2f2f2f;
+  color: white;
+  direction: rtl;
+  width: 50%;
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  padding-right: 2%;
+  overflow: hidden;
+  display: block;
+}
+.itemsTitle{
+  margin-top: -80px;
+  text-align: center;
+  font-weight: bold;
+  color: #b2fbff;
+}
+.carousel{
+  border: 2px solid white;
+  border-radius: 20px;
+  margin: 10px;
+}
+.itemDate{
+  direction: ltr;
+}
+.popUp{
+  background-color: #2f2f2f;
+  width: 50%;
+  height: auto;
+  z-index: 2;
+  padding: 5px;
+  position: absolute;
+  margin-top: 40px;
+}
+.homePage{
+  z-index: 3;
+}
