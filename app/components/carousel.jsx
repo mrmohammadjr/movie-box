@@ -12,7 +12,7 @@ export function CarouselComponent(argument) {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: process.env.KEY
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDY5MDIyNzBjYjMwNGFhNWJkYWYwMWZkNzI3MDUyMiIsInN1YiI6IjY0ZjNjZTk1Y2FhNTA4MDBlOTUzMGFlOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PZNd5x_CnkqmsIwX3Fj3UzvUqwQItlSohFOFw9b_py0'
       }
     }
     let response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=en-US&page=1`,options)
