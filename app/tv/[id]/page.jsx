@@ -1,34 +1,38 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import { getData } from "../../../redux/slice/tvSlice"
+import {getData} from "../../../redux/slice/tvSlice"
 import FavComponent from "../../components/favComponent"
-import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-export default function TvDetails({ params: { id } }) {
-  const [message, setMessage] = useState("")
-  const [status, setStatus] = useState(false)
-  const { data, loading } = useSelector((state) => state.data)
+import {useState,useEffect} from "react"
+import {useDispatch,useSelector} from "react-redux"
+export default function TvDetails({params : {id}}) {
+  const [message,setMessage] = useState("")
+  const [status,setStatus] = useState(false)
+  const {data,loading} = useSelector((state)=> state.data)
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getData(id))
-    setStatus(false)
-  }, [status ? status : ""])
-  async function submitComment(argument) {
-    const sendComments = await fetch(`/api/${data[0]?.name}`, {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        accept: 'application/json'
-      },
-      body: JSON.stringify({ comment: message, movieName: data[0]?.name })
-    })
-    const res = await sendComments.json()
-    setStatus(true)
-  }
-  return (
+    useEffect(()=>{
+      dispatch(getData(id))
+      setStatus(false)
+    },[status?status:""])
+    async function submitComment(argument) {
+      const sendComments = await fetch(`/api/${data[0]?.name}`,{
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            accept: 'application/json'
+          },
+          body: JSON.stringify({comment:message,movieName:data[0]?.name})
+      })
+      const res = await sendComments.json()
+      setStatus(true)
+    }
+    return(
     <div className="p-1.5 mt-3">
-      <div className="grid grid-cols-2">
+            {loading === true ? (
+        <button type="button" className="p-3 bg-white" disabled> <svg class="animate-spin h-3 w-5 mr-3" viewBox="0 0 24 24"> </svg> مووی باکس </button>
+        ) : (
+          <>
+                  <div className="grid grid-cols-2">
         <Image src={`https://image.tmdb.org/t/p/w500/${data[0]?.poster_path}`} className="rounded-2xl inset-0 h-64 w-52 object-cover" width={300} height={200} alt="Card image"/>
         <div className="flex flex-col items-center">
           <h1 className="font-extrabold text-center text-white text-3xl">{data[0]?.name}</h1>
@@ -66,6 +70,8 @@ export default function TvDetails({ params: { id } }) {
           )
         })}
       </div>
+          </>
+          )}
     </div>
   )
 }
