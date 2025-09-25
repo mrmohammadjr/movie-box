@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id              String   @id @default(cuid()) @map("_id")
+  userName        String   @unique
+  email           String   @unique
+  password        String
+  confirmPassword String
+  favorites       String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Comments {
+  id       String   @id @default(cuid()) @map("_id")
+  movieId  Int
+  name     String
+  comments String[]
+  like     Int
+}
