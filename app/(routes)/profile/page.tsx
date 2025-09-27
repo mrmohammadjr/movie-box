@@ -51,7 +51,7 @@ const Profile = async () => {
             </div>
           ) : (
             <>
-              {res?.favorites.map((item, index) => (
+              {res?.favorites.map((item: string, index: number) => (
                 <div key={item}>
                   <Image src={`https://image.tmdb.org/t/p/w500/${item}`} alt="poster" width={300} height={300} />
                   <DeleteFav item={Number(item)} />

@@ -16,7 +16,7 @@ export async function favAction(id: number , poster: string) {
     }
     const idString = String(id);
     if (user.favorites.includes(idString)) {
-      user.favorites = user.favorites.filter((item) => item !== idString);
+      user.favorites = user.favorites.filter((item: string) => item !== idString);
     } else {
       user.favorites.push(idString);
     }
@@ -43,7 +43,7 @@ export async function deletefavAction(item:number) {
       return { error: "User not found" };
     }
     const itemString = String(item);
-    user.favorites = user.favorites.filter((fav) => fav !== itemString);
+    user.favorites = user.favorites.filter((fav: string) => fav !== itemString);
     await prisma.user.update({
       where: { id: user.id },
       data: { favorites: user.favorites },
