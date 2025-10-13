@@ -1,24 +1,28 @@
 "use server";
-import { PrismaClient } from '@prisma/client';
+import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient()
-// use `prisma` in your application to read and write data in your DB
+// Server action to add a user. Uses the shared Prisma singleton and hashes the password.
 
 
 export async function addUser(formData: FormData) {
   const email = formData.get("email") as string;
   const userName = formData.get("name") as string;
+  const rawPassword = (formData.get("password") as string) || "defaultpassword";
+
+  if (!email || !userName) {
+    throw new Error("Missing required fields: email and name");
+  }
+
+  const passwordHash = await bcrypt.hash(rawPassword, 10);
 
   const user = await prisma.user.create({
     data: {
-      id: crypto.randomUUID(),
       email,
       userName,
-      password: "defaultpassword", // In a real app, ensure to hash passwords and handle them securely
-      confirmPassword: "defaultpassword",
+      password: passwordHash,
+      confirmPassword: passwordHash,
       favorites: [],
-      createdAt: new Date(),
-      updatedAt: new Date(),
     },
   });
   return user;
